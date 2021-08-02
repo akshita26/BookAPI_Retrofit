@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.VHodr>{
     List<Itemss> ItemssList;
     Context context;
+    private static int currentPosition = 0;
 
     public MyAdapter(List<Itemss> c1,Context context) {
         this.ItemssList = c1;
@@ -38,9 +42,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.VHodr>{
         for (int j=0;j< aut.length;j++)
             authors+=aut[j]+"\n";
         holder.t2.setText(authors);
+        holder.t3.setText(itemss.getVolInfo().getDescription());
         Glide.with(context)
                 .load(itemss.getVolInfo().getImagelinkss().getThumbnail())
                 .into(holder.img);
+
+        holder.linearLayout.setVisibility(View.GONE);
+        if(currentPosition==position){
+            Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);
+
+            //toggling visibility
+            holder.linearLayout.setVisibility(View.VISIBLE);
+
+            //adding sliding effect
+            holder.linearLayout.startAnimation(slideDown);
+        }
+        holder.t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //getting the position of the item to expand it
+                currentPosition = position;
+
+                //reloding the list
+                notifyDataSetChanged();
+            }
+        });
     }
 
 
@@ -49,15 +76,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.VHodr>{
         return ItemssList.size();
     }
 
-    public void setData(List<Itemss> values) {
-        this.ItemssList.clear();
-        this.ItemssList.addAll(values);
-        notifyDataSetChanged();
-    }
 
     public class VHodr extends RecyclerView.ViewHolder{
         TextView t1,t2,t3;
         ImageView img;
+        LinearLayout linearLayout;
 
         public VHodr(View itemView) {
             super(itemView);
@@ -66,6 +89,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.VHodr>{
             t3=itemView.findViewById(R.id.textView3);
 
             img=itemView.findViewById(R.id.imageView);
+
+            linearLayout=itemView.findViewById(R.id.details);
+
 
         }
     }

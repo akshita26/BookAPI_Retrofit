@@ -10,11 +10,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_gravity="center"
         android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="20dp"
             android:orientation="vertical">
 
             <EditText
@@ -22,15 +24,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Title"
+                android:hint="Search (Good/Bad)"
                 android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:onClick="getet"
-                android:text="Button" />
+                android:backgroundTint="#000"
+                android:text="Get Books" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyid"
