@@ -1,5 +1,6 @@
 package com.example.bookapi_retrofit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.VHodr>{
     }
 
     @Override
-    public void onBindViewHolder(VHodr holder, int position) {
+    public void onBindViewHolder(VHodr holder, @SuppressLint("RecyclerView") int position) {
         Itemss itemss=ItemssList.get(position);
         holder.t1.setText(itemss.getVolInfo().getTitle());
         String[] aut=itemss.getVolInfo().getAuthors();
